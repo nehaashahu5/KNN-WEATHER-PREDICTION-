@@ -1,5 +1,4 @@
-# app.py
-# ML Practical 1 – KNN Weather Classification
+
 
 import numpy as np
 import matplotlib.pyplot as plt
