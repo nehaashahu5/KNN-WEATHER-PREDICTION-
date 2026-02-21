@@ -6,18 +6,14 @@ import streamlit as st
 from sklearn.neighbors import KNeighborsClassifier
 
 
-# -------------------------------
-# Page configuration
-# -------------------------------
+
 st.set_page_config(
     page_title="Weather Classifier",
     layout="wide"
 )
 
 
-# -------------------------------
-# Title & description
-# -------------------------------
+
 st.title("K-Nearest Neighbour Weather Classification")
 
 st.markdown("""
@@ -28,10 +24,6 @@ weather conditions based on **temperature** and **humidity**.
 """)
 
 
-# -------------------------------
-# Training data
-# -------------------------------
-# Features: [Temperature, Humidity]
 X = np.array([
     [30, 70],
     [27, 60],
@@ -40,22 +32,17 @@ X = np.array([
     [20, 75]
 ])
 
-# Labels: 0 = Sunny, 1 = Rainy
+
 y = np.array([0, 1, 0, 1, 1])
 
 
-# -------------------------------
-# Label mapping
-# -------------------------------
+
 label_map = {
     0: "Sunny",
     1: "Rainy"
 }
 
 
-# -------------------------------
-# Sidebar – user input
-# -------------------------------
 st.sidebar.header("Input Parameters")
 
 temperature = st.sidebar.slider(
@@ -83,16 +70,9 @@ k = st.sidebar.slider(
 )
 
 
-# -------------------------------
-# Train the model
-# -------------------------------
 knn = KNeighborsClassifier(n_neighbors=k)
 knn.fit(X, y)
 
-
-# -------------------------------
-# Make prediction
-# -------------------------------
 new_weather = np.array([[temperature, humidity]])
 
 pred = knn.predict(new_weather)[0]
@@ -102,9 +82,7 @@ weather_label = label_map[pred]
 confidence = pred_proba[pred] * 100
 
 
-# -------------------------------
-# Sidebar – result
-# -------------------------------
+
 st.sidebar.markdown("---")
 st.sidebar.subheader("Prediction Result")
 
@@ -116,9 +94,6 @@ else:
 st.sidebar.metric("Confidence", f"{confidence:.2f} %")
 
 
-# -------------------------------
-# Main content – visualization
-# -------------------------------
 col1, col2 = st.columns(2)
 
 with col1:
@@ -126,7 +101,7 @@ with col1:
 
     fig, ax = plt.subplots(figsize=(8, 6))
 
-    # Separate points
+    
     sunny = X[y == 0]
     rainy = X[y == 1]
 
@@ -148,7 +123,7 @@ with col1:
         alpha=0.7
     )
 
-    # New prediction point
+    
     colors = ["orange", "blue"]
     ax.scatter(
         new_weather[0, 0],
